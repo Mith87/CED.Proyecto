@@ -6,8 +6,6 @@ class Cuenta {
 	Cuenta();
 	~Cuenta();
 		
-	int crearCuenta(string , string , float);
-		
 	float getSaldo();
 	string getTipo();
 	string getNombreCliente();
