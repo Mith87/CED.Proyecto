@@ -1,8 +1,12 @@
 #ifndef NODO_H_
 #define NODO_H_
 
-class Nodo {
+#include "Cuenta.h"
+
+class Nodo
+{
     public:
+        // cuenta, izquierdo, derecho
         Nodo(Cuenta *, Nodo *, Nodo *);
         ~Nodo();
 

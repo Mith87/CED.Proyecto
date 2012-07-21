@@ -1,24 +1,27 @@
-#ifndef CUENTA_H
-#define CUENTA_H
+#ifndef CUENTA_H_
+#define CUENTA_H_
 
-class Cuenta {
+#include <string>
+
+class Cuenta
+{
     public:
-	//nombreCliente, numero, tipo, saldo
-	Cuenta(string, string, string, float = 0 ); 
-	~Cuenta();
-		
-	float getSaldo();
-	string getTipo();
-	string getNombreCliente();
-	string getNumero();
-		
-	void setSaldo(float);
+        //nombreCliente, numero, tipo, saldo
+        Cuenta(std::string, int, std::string, float);
+        ~Cuenta();
+
+        int getNumero();
+        std::string getTipo();
+        std::string getNombreCliente();
+        float getSaldo();
+
+        void setSaldo(float);
 
     private:
-	string num; 
-	string tipo;
-	string nombreCliente;
-	float saldo;
+        std::string nombreCliente;
+        int num;
+        std::string tipo;
+        float saldo;
 };
 
 #endif
