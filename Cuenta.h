@@ -2,7 +2,7 @@
 #define CUENTA_H
 
 class Cuenta {
-public:
+	public:
 	Cuenta(string num, string tipo, string nombre, float saldo = 0);
 	~Cuenta();
 		
@@ -15,7 +15,7 @@ public:
 		
 	void setSaldo(float saldo);
 
-private:
+	private:
 	string num; 
 	string tipo;
 	string nombreCliente;
