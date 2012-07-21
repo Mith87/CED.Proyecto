@@ -3,7 +3,8 @@
 
 class Cuenta {
     public:
-	Cuenta();
+	//nombreCliente, numero, tipo, saldo
+	Cuenta(string, string, string, float = 0 ); 
 	~Cuenta();
 		
 	float getSaldo();
