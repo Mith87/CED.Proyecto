@@ -3,17 +3,17 @@
 
 class Cuenta {
     public:
-	Cuenta(string num, string tipo, string nombre, float saldo = 0);
+	Cuenta();
 	~Cuenta();
 		
-	int crearCuenta(string nombre, string tipo, float saldo = 0);
+	int crearCuenta(string , string , float);
 		
 	float getSaldo();
 	string getTipo();
 	string getNombreCliente();
 	string getNumero();
 		
-	void setSaldo(float saldo);
+	void setSaldo(float);
 
     private:
 	string num; 
