@@ -1,7 +1,7 @@
 #include "Nodo.h"
 #include "Cuenta.h"
 
-Nodo::Nodo(Cuenta *cta, Nodo *izq=NULL, Nodo *der=NULL)
+Nodo::Nodo(Cuenta *cta, Nodo *izq, Nodo *der)
     : cuenta(cta), izquierdo(izq), derecho(der) {
 
     //this->cuenta = cta;
@@ -11,6 +11,7 @@ Nodo::Nodo(Cuenta *cta, Nodo *izq=NULL, Nodo *der=NULL)
 
 Nodo::~Nodo() {
 
+    //esto es solo una prueba...
     if(cuenta) delete cuenta;
     if(izquierdo) delete izquierdo;
     if(derecho) delete derecho;

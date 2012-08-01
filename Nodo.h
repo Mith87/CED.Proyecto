@@ -7,7 +7,7 @@ class Nodo
 {
     public:
         //cuenta, izquierdo, derecho
-        Nodo(Cuenta *, Nodo *, Nodo *);
+        Nodo(Cuenta *, Nodo *izq=NULL, Nodo *der=NULL);
         ~Nodo();
 
         //Métodos

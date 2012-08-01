@@ -2,7 +2,7 @@
 #include <string>
 
 
-Cuenta::Cuenta(std::string nombre, int num, std::string tipo, float saldo = 0)
+Cuenta::Cuenta(std::string nombre, int num, std::string tipo, float saldo)
     : nombreCliente(nombre), num(num), tipo(tipo), saldo(saldo) {
 
     //this->nombreCliente = nombreCliente;

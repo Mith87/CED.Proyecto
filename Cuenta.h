@@ -7,18 +7,16 @@ class Cuenta
 {
     public:
         //nombreCliente, numero, tipo, saldo
-        Cuenta(std::string, int, std::string, float);
+        Cuenta(std::string, int, std::string, float = 0);
         ~Cuenta();
 
         //Accesadores
-
         int getNumero();
         std::string getTipo();
         std::string getNombreCliente();
         float getSaldo();
 
         //Mutadores
-
         void setSaldo(float);
 
     private:

@@ -32,11 +32,11 @@ void Arbin::insertarNodo(Cuenta *cta){
     //Cuenta existe
     if(actual) return;
     //Arbol vacío, crea raíz
-    if(!raiz) { raiz = new Nodo(cta, NULL, NULL);}
+    if(!raiz) { raiz = new Nodo(cta);}
     //Agrega nuevo nodo a su respectiva posición
     (numero < padre->getCuenta()->getNumero())
-            ? padre->setIzquierdo(new Nodo(cta, NULL, NULL))
-            : padre->setDerecho(new Nodo(cta, NULL, NULL));
+            ? padre->setIzquierdo(new Nodo(cta))
+            : padre->setDerecho(new Nodo(cta));
 }
 
 void Arbin::borrarNodoCascada(Nodo *nodo){
