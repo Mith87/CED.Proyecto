@@ -10,11 +10,7 @@ Nodo::Nodo(Cuenta *cta, Nodo *izq, Nodo *der)
 }
 
 Nodo::~Nodo() {
-
-    //esto es solo una prueba...
     if(cuenta) delete cuenta;
-    if(izquierdo) delete izquierdo;
-    if(derecho) delete derecho;
 }
 
 //Métodos
