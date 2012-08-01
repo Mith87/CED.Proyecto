@@ -9,11 +9,17 @@ Arbin::~Arbin() {
     borrarNodoCascada(raiz);
 }
 
-Nodo *Arbin::buscarNodo(int numero){
+Nodo *Arbin::buscarNodo(Nodo *nodo, int numero){
 
+    if(numero == nodo->getCuenta()->getNumero())
+        return nodo;
+
+    return (numero < nodo->getCuenta()->getNumero())
+            ? buscarNodo(nodo->getIzquierdo(), numero)
+            : buscarNodo(nodo->getDerecho(), numero);
 }
 
-Nodo *Arbin::buscarNodo(std::string nombre){
+Nodo *Arbin::buscarNodo(Nodo *nodo, std::string nombre){
 
 }
 
@@ -41,4 +47,9 @@ void Arbin::insertarNodo(Cuenta *cta){
 
 void Arbin::borrarNodoCascada(Nodo *nodo){
 
+    if(nodo){
+        borrarNodoCascada(nodo->getIzquierdo());
+        borrarNodoCascada(nodo->getDerecho());
+        delete nodo;
+    }
 }

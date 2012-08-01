@@ -10,8 +10,8 @@ class Arbin
         Arbin();
         ~Arbin();
 
-        Nodo *buscarNodo(int);
-        Nodo *buscarNodo(std::string);
+        Nodo *buscarNodo(Nodo *, int);
+        Nodo *buscarNodo(Nodo *, std::string);
         void insertarNodo(Cuenta *);
         void borrarNodoCascada(Nodo *);
 
