@@ -19,7 +19,7 @@ Nodo *Arbin::buscarNodo(std::string nombre){
 
 void Arbin::insertarNodo(Cuenta *cta){
 
-    Nodo *actual = raiz, *padre;
+    Nodo *padre; actual = raiz;
     int numero = cta->getNumero();
 
     while(!actual && numero != actual->getCuenta()->getNumero()) {
