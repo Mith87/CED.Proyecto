@@ -6,14 +6,19 @@
 class Nodo
 {
     public:
-        // cuenta, izquierdo, derecho
+        //cuenta, izquierdo, derecho
         Nodo(Cuenta *, Nodo *, Nodo *);
         ~Nodo();
 
+        //Métodos
+        bool esHoja() const;
+
+        //Accesadores
         Cuenta *getCuenta() const;
         Nodo *getIzquierdo() const;
         Nodo *getDerecho() const;
 
+        //Mutadores
         void setCuenta(Cuenta *);
         void setIzquierdo(Nodo *);
         void setDerecho(Nodo *);
@@ -22,6 +27,7 @@ class Nodo
         Cuenta *cuenta;
         Nodo *izquierdo;
         Nodo *derecho;
+
 };
 
 #endif

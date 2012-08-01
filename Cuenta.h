@@ -10,10 +10,14 @@ class Cuenta
         Cuenta(std::string, int, std::string, float);
         ~Cuenta();
 
+        //Accesadores
+
         int getNumero();
         std::string getTipo();
         std::string getNombreCliente();
         float getSaldo();
+
+        //Mutadores
 
         void setSaldo(float);
 

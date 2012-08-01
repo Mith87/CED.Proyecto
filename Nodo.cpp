@@ -1,37 +1,51 @@
 #include "Nodo.h"
 #include "Cuenta.h"
 
-Nodo::Nodo(Cuenta * cta, Nodo * izq, Nodo * der) {
+Nodo::Nodo(Cuenta *cta, Nodo *izq=NULL, Nodo *der=NULL)
+    : cuenta(cta), izquierdo(izq), derecho(der) {
 
-    this->cuenta = cta;
-    this->izquierdo = izq;
-    this->derecho = der;
+    //this->cuenta = cta;
+    //this->izquierdo = izq;
+    //this->derecho = der;
 }
 
 Nodo::~Nodo() {
 
+    if(cuenta) delete cuenta;
+    if(izquierdo) delete izquierdo;
+    if(derecho) delete derecho;
 }
 
-Cuenta * Nodo::getCuenta() const {
+//Métodos
+
+bool Nodo::esHoja() const {
+    return (!this->izquierdo && !this->derecho);
+}
+
+//Accesadores
+
+Cuenta *Nodo::getCuenta() const {
     return this->cuenta;
 }
 
-Cuenta * Nodo::getIzquierdo() const {
+Nodo *Nodo::getIzquierdo() const {
     return this->izquierdo;
 }
 
-Cuenta * Nodo::getDerecho() const {
+Nodo *Nodo::getDerecho() const {
     return this->derecho;
 }
 
-void Nodo::setCuenta(Cuenta * cta) {
+//Mutadores
+
+void Nodo::setCuenta(Cuenta *cta) {
     this->cuenta = cta;
 }
 
-void Nodo::setIzquierdo(Nodo * izq) {
+void Nodo::setIzquierdo(Nodo *izq) {
     this->izquierdo = izq;
 }
 
-void Nodo::setDerecho(Nodo * der) {
+void Nodo::setDerecho(Nodo *der) {
     this->derecho = der;
 }
