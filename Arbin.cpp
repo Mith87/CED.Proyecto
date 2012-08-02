@@ -54,7 +54,7 @@ void Arbin::borrarNodoCascada(Nodo *nodo){
     }
 }
 
-void Arbin::recorrerInOrden(void (*impr)(Nodo *), Nodo *nodo) {
+void Arbin::recorrerInOrden(void (*func)(Cuenta *), Nodo *nodo) {
    //valida si nodo existe (default: nodo = null)
    if(!nodo){
        //nodo es hoja o raiz, evita endless loop
@@ -62,7 +62,7 @@ void Arbin::recorrerInOrden(void (*impr)(Nodo *), Nodo *nodo) {
        else nodo = this->raiz;
    }
    //recorrido recursivo de nodos in-orden
-   if(nodo->getIzquierdo()) recorrerInOrden(impr, nodo->getIzquierdo());
-   impr(nodo);
-   if(nodo->getDerecho()) recorrerInOrden(impr, nodo->getDerecho());
+   if(nodo->getIzquierdo()) recorrerInOrden(func, nodo->getIzquierdo());
+   func(nodo->getCuenta());
+   if(nodo->getDerecho()) recorrerInOrden(func, nodo->getDerecho());
 }
