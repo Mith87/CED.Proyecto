@@ -53,7 +53,7 @@ Cuenta *crearCuenta()
     cout << "Saldo: ";
     cin >> saldo;
 
-    cout >> endl;
+    cout << endl;
 
     return new Cuenta(nombre, numero, tipo, saldo);
 }
