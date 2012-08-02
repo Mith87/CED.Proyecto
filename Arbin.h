@@ -14,6 +14,7 @@ class Arbin
         Nodo *buscarNodo(Nodo *, std::string);
         void insertarNodo(Cuenta *);
         void borrarNodoCascada(Nodo *);
+        void ImprimirInOrden(void (*impr)(Nodo *) , Nodo *nodo=NULL);
 
     private:
         Nodo *raiz;
