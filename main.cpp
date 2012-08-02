@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include <string.h>
 
 #include "GestorCuentas.h"
 #include "Cuenta.h"
@@ -17,10 +18,14 @@ void buscarCuentaPorNombre(char);
 
 char leerTipoCuenta();
 
-int main()
+int main(int argc, char **argv)
 {
     bool salir = false;
     char opcion;
+
+    if (strcmp(argv[1], "--prueba") == 0) {
+        GestorCuentas::registrarDatosPrueba();
+    }
 
     cout << " --==Proyecto Final, Estructuras de Datos 1==-- " << endl;
     cout << " Integrantes: Ernesto Villarreal, Pablo Naranjo " << endl;
@@ -128,7 +133,9 @@ void buscarCuentaPorNumero(char tipo) {
     cout << "Numero: ";
     cin >> numero;
 
-    if(!GestorCuentas::buscarPorNumero(numero, tipo)) {
+    if (GestorCuentas::buscarPorNumero(numero, tipo)) {
+        GestorCuentas::imprimirDatos();
+    } else {
         cout << "Error: La cuenta no se pudo encontrar" << endl;
     }
 }
@@ -137,15 +144,14 @@ void buscarCuentaPorNombre(char tipo)
 {
     string nombre;
 
-    tipo = leerTipoCuenta();
-
     cout << "Nombre: ";
     cin >> nombre;
 
-    if (!GestorCuentas::buscarPorNombre(nombre, tipo)) {
+    if (GestorCuentas::buscarPorNombre(nombre, tipo)) {
+        GestorCuentas::imprimirDatos();
+    } else {
         cout << "Error: La cuenta no se pudo encontrar" << endl;
     }
-
 }
 
 char leerTipoCuenta()

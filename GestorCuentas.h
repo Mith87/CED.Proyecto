@@ -7,16 +7,17 @@
 
 namespace GestorCuentas
 {
+    // registra varias cuentas de prueba
+    void registrarDatosPrueba();
     // registra una cuenta, devuelve si se pudo registrar la cuenta
     bool registrar(std::string, int, char, float);
-
     // busca una cuenta por numero, devuelve si se pudo encontrar
     bool buscarPorNumero(int, char);
     // busca una cuenta por nombre de cliente, devuelve si se pudo encontrar
     bool buscarPorNombre(std::string, char);
 
     // imprime los datos de una cuenta
-    void imprimirDatos(Cuenta *);
+    void imprimirDatos(Cuenta *cuenta=NULL);
 }
 
 #endif
