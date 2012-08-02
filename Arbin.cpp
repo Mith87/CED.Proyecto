@@ -40,13 +40,13 @@ Cuenta *Arbin::buscarCuenta(Nodo *nodo, std::string nombre){
     return NULL;
 }
 
-void Arbin::insertarCuenta(Cuenta *cta){
+bool Arbin::insertarCuenta(Cuenta *cta){
 
     Nodo *padre; actual = raiz;
     int numero = cta->getNumero();
 
     //Arbol vacío, crea raíz
-    if(!raiz) { raiz = new Nodo(cta); return; }
+    if(!raiz) { raiz = new Nodo(cta); return true; }
 
     while(actual && numero != actual->getCuenta()->getNumero()) {
         padre = actual;
@@ -56,11 +56,13 @@ void Arbin::insertarCuenta(Cuenta *cta){
     }
 
     //Cuenta existe
-    if(actual) return;
+    if(actual) return false;
     //Agrega nuevo nodo a su respectiva posición
     (numero < padre->getCuenta()->getNumero())
             ? padre->setIzquierdo(new Nodo(cta))
             : padre->setDerecho(new Nodo(cta));
+
+    return true;
 }
 
 void Arbin::borrarNodoCascada(Nodo *nodo){

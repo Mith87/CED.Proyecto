@@ -12,7 +12,7 @@ class Arbin
 
         Cuenta *buscarCuenta(Nodo *, int);
         Cuenta *buscarCuenta(Nodo *, std::string);
-        void insertarCuenta(Cuenta *);
+        bool insertarCuenta(Cuenta *);
         void borrarNodoCascada(Nodo *);
         void recorrerInOrden(void (*func)(Cuenta *) , Nodo *nodo=NULL);
 
