@@ -1,29 +1,38 @@
 #include <iostream>
-#include <sstream>
 #include <cstdlib>
 
+#include "GestorCuentas.h"
 #include "Cuenta.h"
 
 using namespace std;
 
-Cuenta *cuentaSeleccionada;
-
-Cuenta *crearCuenta();
 bool ejecutarOpcion(int);
-void imprimirDatosCuenta(Cuenta *);
 void mostrarMenuPrincipal();
 void mostrarMenuCuenta();
+
+void crearCuenta();
+void buscarCuenta(char);
+void buscarCuentaPorNumero(char);
+void buscarCuentaPorNombre(char);
+
+char leerTipoCuenta();
 
 int main()
 {
     bool salir = false;
-    int opcion;
+    char opcion;
+
+    cout << " --==Proyecto Final, Estructuras de Datos 1==-- " << endl;
+    cout << " Integrantes: Ernesto Villarreal, Pablo Naranjo " << endl;
+    cout << endl;
 
     do {
         mostrarMenuPrincipal();
         cin >> opcion;
+        cout << endl;
 
         salir = ejecutarOpcion(opcion);
+        cout << endl;
 
     } while (!salir);
 
@@ -33,12 +42,19 @@ int main()
 bool ejecutarOpcion(int opcion)
 {
     bool salir = false;
-    Cuenta *cuenta;
 
     switch (opcion) {
-    case 1:
-        cuenta = crearCuenta();
-        imprimirDatosCuenta(cuenta);
+    case 'r':
+        crearCuenta();
+        break;
+
+    case 'c':
+    case 'd':
+        buscarCuenta(opcion);
+        break;
+
+    case 'q':
+        salir = true;
         break;
 
     default:
@@ -51,36 +67,29 @@ bool ejecutarOpcion(int opcion)
 
 void mostrarMenuPrincipal()
 {
-    cout << "[1] Registrar una cuenta" << endl;
-    cout << "[2] Buscar cuenta por numero" << endl;
-    cout << "[3] Buscar cuenta por nombre" << endl;
-    cout << "[4] Salir" << endl;
+    cout << "=== Menu principal ===" << endl;
+    cout << "[r] Registrar una cuenta" << endl;
+    cout << "[c] Buscar cuenta en colones" << endl;
+    cout << "[d] Buscar cuenta en dolares" << endl;
+    cout << "[q] Salir" << endl;
+    cout << "Seleccione una opcion: ";
 }
 
 void mostrarMenuCuenta()
 {
-    cout << "[1] Cambiar saldo" << endl;
+    cout << "[s] Cambiar saldo" << endl;
+    cout << "[q] Salir" << endl;
     // aqui se podria poner eliminar cuenta, etc
 }
 
-void imprimirDatosCuenta(Cuenta *cuenta)
+void crearCuenta()
 {
-    cout << "== Datos de la cuenta ==" << endl;
-    cout << "Numero: " << cuenta->getNumero() << endl;
-    cout << "Nombre: " << cuenta->getNombreCliente() << endl;
-    cout << "Saldo: " << cuenta->getSaldo() << endl;
-    cout << "Tipo: " << cuenta->getTipo() << endl;
-    cout << endl;
-}
-
-Cuenta *crearCuenta()
-{
-    string nombre, tipo;
-    char charTipo;
+    string nombre;
+    char tipo;
     int numero;
     float saldo;
 
-    cout << "== Introduzca los datos de la cuenta ==" << endl;
+    cout << "=== Introduzca los datos de la cuenta ===" << endl;
 
     cout << "Numero: ";
     cin >> numero;
@@ -88,15 +97,62 @@ Cuenta *crearCuenta()
     cout << "Nombre: ";
     cin >> nombre;
 
-    cout << "Tipo: ";
-    cin >> charTipo;
-
-    tipo = (charTipo == 'c') ? "colones" : "dolares";
+    tipo = leerTipoCuenta();
 
     cout << "Saldo: ";
     cin >> saldo;
 
     cout << endl;
 
-    return new Cuenta(nombre, numero, tipo, saldo);
+    if(GestorCuentas::registrar(nombre, numero, tipo, saldo)) {
+        cout << "La cuenta ha sido registrada" << endl;
+    } else {
+        cout << "La cuenta no se pudo registrar" << endl;
+    }
+}
+
+void buscarCuenta(char tipo) {
+    char c;
+    cout << "Buscar por:" << endl;
+    cout << "[1] Numero" << endl;
+    cout << "[2] Nombre" << endl;
+    cout << "Seleccione una opcion: ";
+
+    cin >> c;
+    (c == '1') ? buscarCuentaPorNumero(tipo) : buscarCuentaPorNombre(tipo);
+}
+
+void buscarCuentaPorNumero(char tipo) {
+    int numero;
+
+    cout << "Numero: ";
+    cin >> numero;
+
+    if(!GestorCuentas::buscarPorNumero(numero, tipo)) {
+        cout << "Error: La cuenta no se pudo encontrar" << endl;
+    }
+}
+
+void buscarCuentaPorNombre(char tipo)
+{
+    string nombre;
+
+    tipo = leerTipoCuenta();
+
+    cout << "Nombre: ";
+    cin >> nombre;
+
+    if (!GestorCuentas::buscarPorNombre(nombre, tipo)) {
+        cout << "Error: La cuenta no se pudo encontrar" << endl;
+    }
+
+}
+
+char leerTipoCuenta()
+{
+    char tipo;
+    cout << "Tipo (dolares: d, colones: c): ";
+    cin >> tipo;
+
+    return tipo;
 }

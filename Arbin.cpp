@@ -1,12 +1,18 @@
 #include "Arbin.h"
 #include <string>
 
-Arbin::Arbin() : raiz(NULL), actual(NULL) {
-
-}
+Arbin::Arbin() : raiz(NULL), actual(NULL) {}
 
 Arbin::~Arbin() {
     borrarNodoCascada(raiz);
+}
+
+Cuenta *Arbin::buscarCuenta(int numero) {
+    return buscarCuenta(raiz, numero);
+}
+
+Cuenta *Arbin::buscarCuenta(std::string nombre) {
+    return buscarCuenta(raiz, nombre);
 }
 
 Cuenta *Arbin::buscarCuenta(Nodo *nodo, int numero){

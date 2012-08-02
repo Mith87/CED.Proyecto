@@ -1,20 +1,13 @@
 #include "Cuenta.h"
 #include <string>
 
-
 Cuenta::Cuenta(std::string nombre, int num, std::string tipo, float saldo)
-    : nombreCliente(nombre), num(num), tipo(tipo), saldo(saldo) {
-
-    //this->nombreCliente = nombreCliente;
-    //this->num = num;
-    //this->tipo = tipo;
-    //setSaldo(saldo);
-}
+    : nombreCliente(nombre), num(num), tipo(tipo), saldo(saldo) { }
 
 Cuenta::~Cuenta() {
 }
 
-//Accesadores
+// Accesadores
 
 std::string Cuenta::getNombreCliente() {
     return nombreCliente;
@@ -32,7 +25,7 @@ float Cuenta::getSaldo() {
     return saldo;
 }
 
-//Mutadores
+// Mutadores
 
 void Cuenta::setSaldo(float saldo) {
     this->saldo = saldo;
