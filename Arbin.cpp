@@ -54,11 +54,15 @@ void Arbin::borrarNodoCascada(Nodo *nodo){
     }
 }
 
-void Arbin::ImprimirInOrden(void (*impr)(Nodo *), Nodo *nodo) {
+void Arbin::recorrerInOrden(void (*impr)(Nodo *), Nodo *nodo) {
    //valida si nodo existe (default: nodo = null)
-   if(!nodo) nodo = this->raiz;
+   if(!nodo){
+       //nodo es hoja o raiz, evita endless loop
+       if(nodo->esHoja()) return;
+       else nodo = this->raiz;
+   }
    //recorrido recursivo de nodos in-orden
-   if(nodo->getIzquierdo()) ImprimirInOrden(impr, nodo->getIzquierdo());
+   if(nodo->getIzquierdo()) recorrerInOrden(impr, nodo->getIzquierdo());
    impr(nodo);
-   if(nodo->getDerecho()) ImprimirInOrden(impr, nodo->getDerecho());
+   if(nodo->getDerecho()) recorrerInOrden(impr, nodo->getDerecho());
 }
