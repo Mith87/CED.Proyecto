@@ -4,29 +4,33 @@
 Cuenta::Cuenta(std::string nombre, int num, std::string tipo, float saldo)
     : nombreCliente(nombre), num(num), tipo(tipo), saldo(saldo) { }
 
-Cuenta::~Cuenta() {
-}
+Cuenta::~Cuenta() {}
 
 // Accesadores
 
-std::string Cuenta::getNombreCliente() const {
+std::string Cuenta::getNombreCliente() const
+{
     return nombreCliente;
 }
 
-int Cuenta::getNumero() const {
+int Cuenta::getNumero() const
+{
     return num;
 }
 
-std::string Cuenta::getTipo() const {
+std::string Cuenta::getTipo() const
+{
     return tipo;
 }
 
-float Cuenta::getSaldo() const {
+float Cuenta::getSaldo() const
+{
     return saldo;
 }
 
 // Mutadores
 
-void Cuenta::setSaldo(float saldo) {
+void Cuenta::setSaldo(float saldo)
+{
     this->saldo = saldo;
 }

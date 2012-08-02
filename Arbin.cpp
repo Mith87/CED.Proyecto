@@ -3,20 +3,23 @@
 
 Arbin::Arbin() : raiz(NULL), actual(NULL) {}
 
-Arbin::~Arbin() {
+Arbin::~Arbin()
+{
     borrarNodoCascada(raiz);
 }
 
-Cuenta *Arbin::buscarCuenta(int numero) const {
+Cuenta *Arbin::buscarCuenta(int numero) const
+{
     return buscarCuenta(raiz, numero);
 }
 
-Cuenta *Arbin::buscarCuenta(std::string nombre) const {
+Cuenta *Arbin::buscarCuenta(std::string nombre) const
+{
     return buscarCuenta(raiz, nombre);
 }
 
-Cuenta *Arbin::buscarCuenta(Nodo *nodo, int numero) const {
-
+Cuenta *Arbin::buscarCuenta(Nodo *nodo, int numero) const
+{
     // se llego a un nodo vacio, no se encontro la cuenta
     if (!nodo) {
         return NULL;
@@ -31,8 +34,8 @@ Cuenta *Arbin::buscarCuenta(Nodo *nodo, int numero) const {
             : buscarCuenta(nodo->getDerecho(), numero);
 }
 
-Cuenta *Arbin::buscarCuenta(Nodo *nodo, std::string nombre) const {
-
+Cuenta *Arbin::buscarCuenta(Nodo *nodo, std::string nombre) const
+{
     if (nombre == nodo->getCuenta()->getNombreCliente()) {
         return nodo->getCuenta();
     }
@@ -58,8 +61,8 @@ Cuenta *Arbin::buscarCuenta(Nodo *nodo, std::string nombre) const {
     return NULL;
 }
 
-bool Arbin::insertarCuenta(Cuenta *cta) {
-
+bool Arbin::insertarCuenta(Cuenta *cta)
+{
     Nodo *padre; actual = raiz;
     int numero = cta->getNumero();
 
@@ -90,8 +93,8 @@ bool Arbin::insertarCuenta(Cuenta *cta) {
     return true;
 }
 
-void Arbin::borrarNodoCascada(Nodo *nodo) {
-
+void Arbin::borrarNodoCascada(Nodo *nodo)
+{
     if (nodo) {
         borrarNodoCascada(nodo->getIzquierdo());
         borrarNodoCascada(nodo->getDerecho());
@@ -99,7 +102,8 @@ void Arbin::borrarNodoCascada(Nodo *nodo) {
     }
 }
 
-void Arbin::recorrerInOrden(void (*func)(Cuenta *), Nodo *nodo) const {
+void Arbin::recorrerInOrden(void (*func)(Cuenta *), Nodo *nodo) const
+{
     // valida si nodo existe (default: nodo = null)
     if (!nodo) {
        // nodo es hoja o raiz, evita endless loop
