@@ -6,18 +6,61 @@
 
 using namespace std;
 
+Cuenta *cuentaSeleccionada;
+
 Cuenta *crearCuenta();
+bool ejecutarOpcion(int);
 void imprimirDatosCuenta(Cuenta *);
-void mostrarMenu();
+void mostrarMenuPrincipal();
+void mostrarMenuCuenta();
 
 int main()
 {
-    Cuenta *cuenta = crearCuenta();
+    bool salir = false;
+    int opcion;
 
-    imprimirDatosCuenta(cuenta);
+    do {
+        mostrarMenuPrincipal();
+        cin >> opcion;
 
-    delete cuenta;
+        salir = ejecutarOpcion(opcion);
+
+    } while (!salir);
+
     return EXIT_SUCCESS;
+}
+
+bool ejecutarOpcion(int opcion)
+{
+    bool salir = false;
+    Cuenta *cuenta;
+
+    switch (opcion) {
+    case 1:
+        cuenta = crearCuenta();
+        imprimirDatosCuenta(cuenta);
+        break;
+
+    default:
+        cout << "Error: Opcion no valida" << endl;
+        break;
+    }
+
+    return salir;
+}
+
+void mostrarMenuPrincipal()
+{
+    cout << "[1] Registrar una cuenta" << endl;
+    cout << "[2] Buscar cuenta por numero" << endl;
+    cout << "[3] Buscar cuenta por nombre" << endl;
+    cout << "[4] Salir" << endl;
+}
+
+void mostrarMenuCuenta()
+{
+    cout << "[1] Cambiar saldo" << endl;
+    // aqui se podria poner eliminar cuenta, etc
 }
 
 void imprimirDatosCuenta(Cuenta *cuenta)
@@ -53,7 +96,7 @@ Cuenta *crearCuenta()
     cout << "Saldo: ";
     cin >> saldo;
 
-    cout >> endl;
+    cout << endl;
 
     return new Cuenta(nombre, numero, tipo, saldo);
 }
