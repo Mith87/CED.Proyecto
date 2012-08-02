@@ -34,6 +34,10 @@ Cuenta *Arbin::buscarCuenta(Nodo *nodo, std::string nombre){
         der = buscarCuenta(nodo->getDerecho(), nombre);
         if(der) return der;
     }
+
+    //si llega a este punto
+    //cuenta no existe
+    return NULL;
 }
 
 void Arbin::insertarCuenta(Cuenta *cta){
