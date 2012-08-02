@@ -11,10 +11,10 @@ class Cuenta
         ~Cuenta();
 
         // Accesadores
-        int getNumero();
-        std::string getTipo();
-        std::string getNombreCliente();
-        float getSaldo();
+        int getNumero() const;
+        std::string getTipo() const;
+        std::string getNombreCliente() const;
+        float getSaldo() const;
 
         // Mutadores
         void setSaldo(float);

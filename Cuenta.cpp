@@ -9,19 +9,19 @@ Cuenta::~Cuenta() {
 
 // Accesadores
 
-std::string Cuenta::getNombreCliente() {
+std::string Cuenta::getNombreCliente() const {
     return nombreCliente;
 }
 
-int Cuenta::getNumero() {
+int Cuenta::getNumero() const {
     return num;
 }
 
-std::string Cuenta::getTipo() {
+std::string Cuenta::getTipo() const {
     return tipo;
 }
 
-float Cuenta::getSaldo() {
+float Cuenta::getSaldo() const {
     return saldo;
 }
 
