@@ -15,6 +15,7 @@ void crearCuenta();
 void buscarCuenta(char);
 void buscarCuentaPorNumero(char);
 void buscarCuentaPorNombre(char);
+void cambiarSaldoCuenta();
 
 char leerTipoCuenta();
 
@@ -32,12 +33,25 @@ int main(int argc, char **argv)
     cout << endl;
 
     do {
-        mostrarMenuPrincipal();
+        bool c = GestorCuentas::hayCuentaSeleccionada();
+
+        if (c) {
+            GestorCuentas::imprimirDatos();
+            cout << endl;
+            mostrarMenuCuenta();
+        } else {
+            mostrarMenuPrincipal();
+        }
+
         cin >> opcion;
         cout << endl;
 
         salir = ejecutarOpcion(opcion);
-        cout << endl;
+
+        if (c && salir) {
+            GestorCuentas::deseleccionarCuenta();
+            salir = false;
+        }
 
     } while (!salir);
 
@@ -49,14 +63,21 @@ bool ejecutarOpcion(int opcion)
     bool salir = false;
 
     switch (opcion) {
-    case 'r':
-        crearCuenta();
-        break;
 
-    case 'c':
-    case 'd':
-        buscarCuenta(opcion);
-        break;
+    if (GestorCuentas::hayCuentaSeleccionada()) {
+        case 'r':
+            crearCuenta();
+            break;
+
+        case 'c':
+        case 'd':
+            buscarCuenta(opcion);
+            break;
+    } else {
+        case 's':
+            cambiarSaldoCuenta();
+            break;
+    }
 
     case 'q':
         salir = true;
@@ -82,9 +103,11 @@ void mostrarMenuPrincipal()
 
 void mostrarMenuCuenta()
 {
+    cout << "=== Menu de cuenta ===" << endl;
     cout << "[s] Cambiar saldo" << endl;
     cout << "[q] Salir" << endl;
-    // aqui se podria poner eliminar cuenta, etc
+    cout << "Seleccione una opcion: ";
+    // aqui se podria tambien poner eliminar cuenta, etc
 }
 
 void crearCuenta()
@@ -116,6 +139,15 @@ void crearCuenta()
     }
 }
 
+void cambiarSaldoCuenta() {
+    float saldo;
+
+    cout << "Saldo: ";
+    cin >> saldo;
+
+    GestorCuentas::cambiarSaldo(saldo);
+}
+
 void buscarCuenta(char tipo) {
     char c;
     cout << "Buscar por:" << endl;
@@ -133,11 +165,11 @@ void buscarCuentaPorNumero(char tipo) {
     cout << "Numero: ";
     cin >> numero;
 
-    if (GestorCuentas::buscarPorNumero(numero, tipo)) {
-        GestorCuentas::imprimirDatos();
-    } else {
+    if (!GestorCuentas::buscarPorNumero(numero, tipo)) {
         cout << "Error: La cuenta no se pudo encontrar" << endl;
     }
+
+    cout << endl;
 }
 
 void buscarCuentaPorNombre(char tipo)
@@ -147,11 +179,11 @@ void buscarCuentaPorNombre(char tipo)
     cout << "Nombre: ";
     cin >> nombre;
 
-    if (GestorCuentas::buscarPorNombre(nombre, tipo)) {
-        GestorCuentas::imprimirDatos();
-    } else {
+    if (!GestorCuentas::buscarPorNombre(nombre, tipo)) {
         cout << "Error: La cuenta no se pudo encontrar" << endl;
     }
+
+    cout << endl;
 }
 
 char leerTipoCuenta()

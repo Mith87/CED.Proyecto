@@ -22,12 +22,27 @@ namespace GestorCuentas
     {
         for (int i = 0; i < 40; i++) {
             stringstream sstm;
-            bool c = i < 20;
+            bool c = i < 19;
 
             sstm << "Pablo " << i;
 
-            registrar(sstm.str(), c ? i : i - 20, (c ? 'c' : 'd'), i * (c ? 1000 : 2));
+            registrar(sstm.str(), c ? i : i - 19, (c ? 'c' : 'd'), i * (c ? 1000 : 2));
         }
+    }
+
+    bool hayCuentaSeleccionada()
+    {
+        return cuentaSeleccionada != NULL;
+    }
+
+    void deseleccionarCuenta()
+    {
+        cuentaSeleccionada = NULL;
+    }
+
+    void cambiarSaldo(float saldo)
+    {
+        cuentaSeleccionada->setSaldo(saldo);
     }
 
     bool registrar(string nombre, int numero, char charTipo, float saldo)
