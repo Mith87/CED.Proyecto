@@ -38,7 +38,7 @@ void Arbin::insertarNodo(Cuenta *cta){
     //Cuenta existe
     if(actual) return;
     //Arbol vacío, crea raíz
-    if(!raiz) { raiz = new Nodo(cta);}
+    if(!raiz) { raiz = new Nodo(cta); return; }
     //Agrega nuevo nodo a su respectiva posición
     (numero < padre->getCuenta()->getNumero())
             ? padre->setIzquierdo(new Nodo(cta))
@@ -52,4 +52,13 @@ void Arbin::borrarNodoCascada(Nodo *nodo){
         borrarNodoCascada(nodo->getDerecho());
         delete nodo;
     }
+}
+
+void Arbin::ImprimirInOrden(void (*impr)(Nodo *), Nodo *nodo) {
+   //valida si nodo existe (default: nodo = null)
+   if(!nodo) nodo = this->raiz;
+   //recorrido recursivo de nodos in-orden
+   if(nodo->getIzquierdo()) ImprimirInOrden(impr, nodo->getIzquierdo());
+   impr(nodo);
+   if(nodo->getDerecho()) ImprimirInOrden(impr, nodo->getDerecho());
 }
