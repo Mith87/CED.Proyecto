@@ -45,7 +45,10 @@ void Arbin::insertarCuenta(Cuenta *cta){
     Nodo *padre; actual = raiz;
     int numero = cta->getNumero();
 
-    while(!actual && numero != actual->getCuenta()->getNumero()) {
+    //Arbol vacío, crea raíz
+    if(!raiz) { raiz = new Nodo(cta); return; }
+
+    while(actual && numero != actual->getCuenta()->getNumero()) {
         padre = actual;
        (numero < actual->getCuenta()->getNumero())
             ? actual = actual->getIzquierdo()
@@ -54,8 +57,6 @@ void Arbin::insertarCuenta(Cuenta *cta){
 
     //Cuenta existe
     if(actual) return;
-    //Arbol vacío, crea raíz
-    if(!raiz) { raiz = new Nodo(cta); return; }
     //Agrega nuevo nodo a su respectiva posición
     (numero < padre->getCuenta()->getNumero())
             ? padre->setIzquierdo(new Nodo(cta))
