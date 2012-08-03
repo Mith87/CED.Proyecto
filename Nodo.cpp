@@ -11,14 +11,14 @@ Nodo::~Nodo()
     }
 }
 
-//Métodos
+// MÃ©todos
 
 bool Nodo::esHoja() const
 {
     return (!this->izquierdo && !this->derecho);
 }
 
-//Accesadores
+// Accesadores
 
 Cuenta *Nodo::getCuenta() const
 {
@@ -35,7 +35,7 @@ Nodo *Nodo::getDerecho() const
     return this->derecho;
 }
 
-//Mutadores
+// Mutadores
 
 void Nodo::setCuenta(Cuenta *cta)
 {

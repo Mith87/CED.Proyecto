@@ -176,11 +176,9 @@ void buscarCuentaPorNombre(char tipo)
 {
     string nombre;
 
-    cout << "Nombre: " << endl;
+    cout << "Nombre: ";
     cin.ignore();
-    getline( cin, nombre );
-    /*cin no sirve si el string tiene whitespaces,tabs, etc*/
-    //cin >> nombre;
+    getline(cin, nombre );
 
     if (!GestorCuentas::buscarPorNombre(nombre, tipo)) {
         cout << "Error: La cuenta no se pudo encontrar" << endl;

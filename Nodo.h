@@ -10,7 +10,7 @@ class Nodo
         Nodo(Cuenta *, Nodo *izq=NULL, Nodo *der=NULL);
         ~Nodo();
 
-        //Métodos
+        //MÃ©todos
         bool esHoja() const;
 
         //Accesadores
