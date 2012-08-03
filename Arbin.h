@@ -18,7 +18,6 @@ class Arbin
         Cuenta *buscarCuenta(std::string) const;
 
         void borrarNodoCascada(Nodo *);
-
         void recorrerInOrden(void (*func)(Cuenta *) , Nodo *nodo=NULL) const;
 
     private:
@@ -27,7 +26,6 @@ class Arbin
 
         // buscar cuenta por numero de cuenta a partir de un nodo
         Cuenta *buscarCuenta(Nodo *, int) const;
-
         // buscar cuenta por nombre de cliente a partir de un nodo
         Cuenta *buscarCuenta(Nodo *, std::string) const;
 };
