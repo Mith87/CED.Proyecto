@@ -24,9 +24,9 @@ int main(int argc, char **argv)
     bool salir = false;
     char opcion;
 
-    //if (strcmp(argv[1], "--prueba") == 0) {
+    if (strcmp(argv[1], "--prueba") == 0) {
         GestorCuentas::registrarDatosPrueba();
-    //}
+    }
 
     cout << " --==Proyecto Final, Estructuras de Datos 1==-- " << endl;
     cout << " Integrantes: Ernesto Villarreal, Pablo Naranjo " << endl;
