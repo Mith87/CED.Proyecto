@@ -55,6 +55,8 @@ int main(int argc, char **argv)
 
     } while (!salir);
 
+    GestorCuentas::finalizar();
+
     return EXIT_SUCCESS;
 }
 

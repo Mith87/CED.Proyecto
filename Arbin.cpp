@@ -1,5 +1,6 @@
 #include "Arbin.h"
 #include <string>
+#include <iostream>
 
 Arbin::Arbin() : raiz(NULL), actual(NULL) {}
 

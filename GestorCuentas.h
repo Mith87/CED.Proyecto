@@ -11,7 +11,6 @@ namespace GestorCuentas
     bool hayCuentaSeleccionada();
     // deselecciona la cuenta
     void deseleccionarCuenta();
-
     // cambia el saldo de la cuenta seleccionada
     void cambiarSaldo(float);
 
@@ -26,6 +25,8 @@ namespace GestorCuentas
 
     // imprime los datos de una cuenta
     void imprimirDatos(Cuenta *cuenta=NULL);
+
+    void finalizar();
 }
 
 #endif

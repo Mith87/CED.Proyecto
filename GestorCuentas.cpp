@@ -8,13 +8,19 @@ namespace GestorCuentas
 
     namespace
     {
-        Cuenta *cuentaSeleccionada;
-        Arbin *arbolDolares = new Arbin();
-        Arbin *arbolColones = new Arbin();
+        Cuenta *cuentaSeleccionada = NULL;
+        Arbin *arbolDolares = NULL;
+        Arbin *arbolColones = NULL;
 
         Arbin *seleccionarArbol(char charTipo)
         {
-            return (charTipo == 'c') ? arbolColones : arbolDolares;
+            Arbin **arbol = (charTipo == 'c') ? &arbolColones : &arbolDolares;
+
+            if (!(*arbol)) {
+                *arbol = (new Arbin());
+            }
+
+            return *arbol;
         }
     }
 
@@ -83,5 +89,16 @@ namespace GestorCuentas
         cuentaSeleccionada = arbol->buscarCuenta(nombre);
 
         return cuentaSeleccionada;
+    }
+
+    void finalizar()
+    {
+        if (arbolColones) {
+            delete arbolColones;
+        }
+
+        if (arbolDolares) {
+            delete arbolDolares;
+        }
     }
 }

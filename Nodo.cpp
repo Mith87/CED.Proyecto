@@ -6,9 +6,7 @@ Nodo::Nodo(Cuenta *cta, Nodo *izq, Nodo *der)
 
 Nodo::~Nodo()
 {
-    if (cuenta) {
-        delete cuenta;
-    }
+    delete cuenta;
 }
 
 // Métodos
