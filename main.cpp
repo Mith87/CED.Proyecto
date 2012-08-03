@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include <sstream>
 #include <string.h>
 
 #include "GestorCuentas.h"
@@ -17,7 +18,10 @@ void buscarCuentaPorNumero(char);
 void buscarCuentaPorNombre(char);
 void cambiarSaldoCuenta();
 
-char leerTipoCuenta();
+char leerChar(string);
+int leerInt(string);
+float leerFloat(string);
+string leerString(string);
 
 int main(int argc, char **argv)
 {
@@ -43,7 +47,7 @@ int main(int argc, char **argv)
             mostrarMenuPrincipal();
         }
 
-        cin >> opcion;
+        opcion = leerChar("");
         cout << endl;
 
         salir = ejecutarOpcion(opcion);
@@ -121,16 +125,16 @@ void crearCuenta()
 
     cout << "=== Introduzca los datos de la cuenta ===" << endl;
 
-    cout << "Numero: ";
-    cin >> numero;
+    numero = leerInt("Numero: ");
+    nombre = leerString("Nombre: ");
+    tipo = leerChar("Tipo (colones: c, dolares: d): ");
 
-    cout << "Nombre: ";
-    cin >> nombre;
+    // si se ingreso un tipo invalido, usar colones por defecto
+    if (tipo != 'c' || tipo != 'd') {
+        tipo = 'c';
+    }
 
-    tipo = leerTipoCuenta();
-
-    cout << "Saldo: ";
-    cin >> saldo;
+    saldo = leerFloat("Saldo: ");
 
     cout << endl;
 
@@ -142,30 +146,21 @@ void crearCuenta()
 }
 
 void cambiarSaldoCuenta() {
-    float saldo;
-
-    cout << "Saldo: ";
-    cin >> saldo;
-
+    float saldo = leerFloat("Saldo: ");
     GestorCuentas::cambiarSaldo(saldo);
 }
 
 void buscarCuenta(char tipo) {
-    char c;
     cout << "Buscar por:" << endl;
     cout << "[1] Numero" << endl;
     cout << "[2] Nombre" << endl;
-    cout << "Seleccione una opcion: ";
+    char c = leerChar("Seleccione una opcion: ");
 
-    cin >> c;
     (c == '1') ? buscarCuentaPorNumero(tipo) : buscarCuentaPorNombre(tipo);
 }
 
 void buscarCuentaPorNumero(char tipo) {
-    int numero;
-
-    cout << "Numero: ";
-    cin >> numero;
+    int numero = leerInt("Numero: ");
 
     if (!GestorCuentas::buscarPorNumero(numero, tipo)) {
         cout << "Error: La cuenta no se pudo encontrar" << endl;
@@ -176,11 +171,7 @@ void buscarCuentaPorNumero(char tipo) {
 
 void buscarCuentaPorNombre(char tipo)
 {
-    string nombre;
-
-    cout << "Nombre: ";
-    cin.ignore();
-    getline(cin, nombre );
+    string nombre = leerString("Nombre: ");
 
     if (!GestorCuentas::buscarPorNombre(nombre, tipo)) {
         cout << "Error: La cuenta no se pudo encontrar" << endl;
@@ -189,11 +180,75 @@ void buscarCuentaPorNombre(char tipo)
     cout << endl;
 }
 
-char leerTipoCuenta()
+int leerInt(string msj)
 {
-    char tipo;
-    cout << "Tipo (dolares: d, colones: c): ";
-    cin >> tipo;
+    string input = "";
+    int num;
 
-    return tipo;
+    for (;;) {
+        cout << msj;
+        getline(cin, input);
+
+        stringstream ss(input);
+
+        if (ss >> num) {
+            break;
+        }
+
+        cout << "Numero invalido, trate de nuevo" << endl;
+    }
+
+    return num;
+}
+
+float leerFloat(string msj)
+{
+    string input = "";
+    float num;
+
+    for (;;) {
+        cout << msj;
+        getline(cin, input);
+
+        stringstream ss(input);
+
+        if (ss >> num) {
+            break;
+        }
+
+        cout << "Numero invalido, trate de nuevo" << endl;
+    }
+
+    return num;
+}
+
+string leerString(string msj)
+{
+    string nombre = "";
+    cout << msj;
+
+    getline(cin, nombre);
+
+    return nombre;
+}
+
+char leerChar(string msj)
+{
+    string input = "";
+    char c;
+
+    for (;;) {
+        cout << msj;
+        getline(cin, input);
+
+        stringstream ss(input);
+
+        if (ss >> c) {
+            break;
+        }
+
+        cout << "Caracter invalido, trate de nuevo" << endl;
+    }
+
+    return c;
 }
