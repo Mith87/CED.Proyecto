@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     bool salir = false;
     char opcion;
 
-    if (strcmp(argv[1], "--prueba") == 0) {
+    if (argc > 1 && strcmp(argv[1], "--prueba") == 0) {
         GestorCuentas::registrarDatosPrueba();
     }
 
