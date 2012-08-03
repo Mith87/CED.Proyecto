@@ -31,6 +31,7 @@ Cuenta *Arbin::buscarCuenta(Nodo *nodo, int numero) const {
 }
 
 Cuenta *Arbin::buscarCuenta(Nodo *nodo, std::string nombre) const {
+
     if (nombre == nodo->getCuenta()->getNombreCliente()) {
         return nodo->getCuenta();
     }
