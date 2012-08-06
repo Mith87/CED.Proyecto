@@ -51,6 +51,13 @@ namespace GestorCuentas
         cuentaSeleccionada->setSaldo(saldo);
     }
 
+    void eliminarCuenta() {
+        char tipo = (cuentaSeleccionada->getTipo() == "colones") ? 'c' : 'd';
+        Arbin *arbol = seleccionarArbol(tipo);
+        arbol->borrarCuenta(cuentaSeleccionada);
+        deseleccionarCuenta();
+    }
+
     bool registrar(string nombre, int numero, char charTipo, float saldo)
     {
         Arbin *arbol = seleccionarArbol(charTipo);
@@ -58,6 +65,7 @@ namespace GestorCuentas
         Cuenta *cuenta = new Cuenta(nombre, numero, tipo, saldo);
 
         return arbol->insertarCuenta(cuenta);
+        //return arbol->insertarCuentaRecursivo(cuenta);
     }
 
     void imprimirDatos(Cuenta *cuenta)
@@ -68,11 +76,18 @@ namespace GestorCuentas
             cuenta = cuentaSeleccionada;
         }
 
+        cout << endl;
+        cout << "--------------------------" << endl;
         cout << "=== Datos de la cuenta ===" << endl;
         cout << "Numero: " << cuenta->getNumero() << endl;
         cout << "Nombre: " << cuenta->getNombreCliente() << endl;
         cout << "Saldo: " << cuenta->getSaldo() << endl;
         cout << "Tipo: " << cuenta->getTipo() << endl;
+    }
+
+    void imprimirInOrden(char charTipo){
+        Arbin *arbol = seleccionarArbol(charTipo);
+        arbol->recorrerInOrden(imprimirDatos);
     }
 
     bool buscarPorNumero(int numero, char charTipo)

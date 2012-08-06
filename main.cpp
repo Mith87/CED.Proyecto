@@ -11,12 +11,15 @@ using namespace std;
 bool ejecutarOpcion(int);
 void mostrarMenuPrincipal();
 void mostrarMenuCuenta();
+void mostrarMenuInorden();
 
 void crearCuenta();
 void buscarCuenta(char);
 void buscarCuentaPorNumero(char);
 void buscarCuentaPorNombre(char);
 void cambiarSaldoCuenta();
+void imprimirInOrden(char);
+void eliminarCuenta();
 
 char leerChar(string);
 int leerInt(string);
@@ -28,9 +31,9 @@ int main(int argc, char **argv)
     bool salir = false;
     char opcion;
 
-    if (argc > 1 && strcmp(argv[1], "--prueba") == 0) {
+    //if (argc > 1 && strcmp(argv[1], "--prueba") == 0) {
         GestorCuentas::registrarDatosPrueba();
-    }
+    //}
 
     cout << " --==Proyecto Final, Estructuras de Datos 1==-- " << endl;
     cout << " Integrantes: Ernesto Villarreal, Pablo Naranjo " << endl;
@@ -74,14 +77,21 @@ bool ejecutarOpcion(int opcion)
         case 'r':
             crearCuenta();
             break;
-
         case 'c':
+            buscarCuenta(opcion);
+            break;
         case 'd':
             buscarCuenta(opcion);
+            break;
+        case 'i':
+            mostrarMenuInorden();
             break;
     } else {
         case 's':
             cambiarSaldoCuenta();
+            break;
+        case 'e':
+            eliminarCuenta();
             break;
     }
 
@@ -99,21 +109,42 @@ bool ejecutarOpcion(int opcion)
 
 void mostrarMenuPrincipal()
 {
+    cout << endl;
     cout << "=== Menu principal ===" << endl;
     cout << "[r] Registrar una cuenta" << endl;
     cout << "[c] Buscar cuenta en colones" << endl;
     cout << "[d] Buscar cuenta en dolares" << endl;
+    cout << "[i] Imprimir Arbol Inorden" << endl;
     cout << "[q] Salir" << endl;
+    cout << endl;
     cout << "Seleccione una opcion: ";
 }
 
 void mostrarMenuCuenta()
 {
+    cout << endl;
     cout << "=== Menu de cuenta ===" << endl;
     cout << "[s] Cambiar saldo" << endl;
+    cout << "[e] Eliminar cuenta" << endl;
     cout << "[q] Salir" << endl;
+    cout << endl;
     cout << "Seleccione una opcion: ";
-    // aqui se podria tambien poner eliminar cuenta, etc
+}
+
+void mostrarMenuInorden()
+{
+    cout << endl;
+    cout << "=== Impresion In-Orden ===" << endl;
+    cout << "[c] Arbol Colones" << endl;
+    cout << "[d] Arbol Dolares" << endl;
+    cout << endl;
+    char c = leerChar("Seleccione una opcion: ");
+
+    (c == 'c') ? imprimirInOrden('c') : imprimirInOrden('d');
+}
+
+void imprimirInOrden(char tipo) {
+    GestorCuentas::imprimirInOrden(tipo);
 }
 
 void crearCuenta()
@@ -148,6 +179,10 @@ void crearCuenta()
 void cambiarSaldoCuenta() {
     float saldo = leerFloat("Saldo: ");
     GestorCuentas::cambiarSaldo(saldo);
+}
+
+void eliminarCuenta() {
+    GestorCuentas::eliminarCuenta();
 }
 
 void buscarCuenta(char tipo) {

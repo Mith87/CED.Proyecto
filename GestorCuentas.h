@@ -25,6 +25,9 @@ namespace GestorCuentas
 
     // imprime los datos de una cuenta
     void imprimirDatos(Cuenta *cuenta=NULL);
+    //imprime los nodos del arbol inorden
+    void imprimirInOrden(char);
+    void eliminarCuenta();
 
     void finalizar();
 }
