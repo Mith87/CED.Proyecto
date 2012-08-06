@@ -1,1 +1,19 @@
 ***TODO***
+
+el programa debe eliminar un nodo sin 
+eliminar sus hijos
+
+dejar un solo insertar (iterativo o recursivo)
+
+corregir error de cuenta null al buscar un nodo eliminado
+
+limpiar comments al final de Arbin.cpp
+
+arreglar errores de ejecucion en el balanceo de arbol
+
+
+
+
+
+
+
