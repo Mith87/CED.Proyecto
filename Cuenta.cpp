@@ -2,7 +2,7 @@
 #include <string>
 
 Cuenta::Cuenta(std::string nombre, int num, std::string tipo, float saldo)
-    : nombreCliente(nombre), num(num), tipo(tipo), saldo(saldo) { }
+    : nombreCliente(nombre), num(num), tipo(tipo), saldo(saldo) , altura(0) { }
 
 Cuenta::~Cuenta() {}
 
@@ -28,9 +28,20 @@ float Cuenta::getSaldo() const
     return saldo;
 }
 
+int Cuenta::getAltura() const
+{
+    return altura;
+}
+
 // Mutadores
 
 void Cuenta::setSaldo(float saldo)
 {
     this->saldo = saldo;
 }
+
+void Cuenta::setAltura(int h)
+{
+    this->altura = h;
+}
+
