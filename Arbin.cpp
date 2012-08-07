@@ -189,12 +189,16 @@ void Arbin::borrarNodo(Nodo *nodo)
     // nodo hoja
     if (nodo->esHoja()) {
 
-        if ((padre = nodo->getPadre())) {
+        if (nodo->getPadre()) {
+            padre = nodo->getPadre();
+
             if (padre->getDerecho() == nodo) {
                 padre->setDerecho(NULL);
             } else {
                 padre->setIzquierdo(NULL);
             }
+        } else {
+            raiz = NULL;
         }
 
         delete nodo;
@@ -204,7 +208,9 @@ void Arbin::borrarNodo(Nodo *nodo)
     } else if (((hijo = nodo->getIzquierdo()) && !nodo->getDerecho()) ||
                ((hijo = nodo->getDerecho()) && !nodo->getIzquierdo())) {
 
-        if ((padre = nodo->getPadre())) {
+        if (nodo->getPadre()) {
+            padre = nodo->getPadre();
+
             if (padre->getDerecho() == nodo) {
                 padre->setDerecho(hijo);
             } else {
@@ -243,8 +249,8 @@ void Arbin::recorrerInOrden(void (*func)(Cuenta *)) const
 void Arbin::recorrerInOrden(void (*func)(Cuenta *), Nodo *nodo) const
 {
     //valida si nodo existe (default: nodo )
-    if(!nodo) {
-       nodo = this->raiz;
+    if (!nodo) {
+       return;
     }
     //recorrido recursivo de nodos in-orden
     if(nodo->getIzquierdo()) {
