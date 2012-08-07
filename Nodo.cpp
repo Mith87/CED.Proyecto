@@ -13,6 +13,7 @@ Nodo::Nodo(Cuenta *cta, Nodo *padre)
 Nodo::~Nodo()
 {
     delete cuenta;
+    cuenta = NULL;
 }
 
 // Métodos

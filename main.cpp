@@ -71,9 +71,10 @@ bool ejecutarOpcion(int opcion)
 {
     bool salir = false;
 
-    switch (opcion) {
 
-    if (GestorCuentas::hayCuentaSeleccionada()) {
+
+    if (!GestorCuentas::hayCuentaSeleccionada()) {
+        switch (opcion) {
         case 'r':
             crearCuenta();
             break;
@@ -86,22 +87,28 @@ bool ejecutarOpcion(int opcion)
         case 'i':
             mostrarMenuInorden();
             break;
+        default:
+            cout << "Error: Opcion no valida" << endl;
+            break;
+        case 'q':
+            salir = true;
+            break;
+        }
     } else {
+        switch (opcion) {
         case 's':
             cambiarSaldoCuenta();
             break;
         case 'e':
             eliminarCuenta();
             break;
-    }
-
-    case 'q':
-        salir = true;
-        break;
-
-    default:
-        cout << "Error: Opcion no valida" << endl;
-        break;
+        default:
+            cout << "Error: Opcion no valida" << endl;
+            break;
+        case 'q':
+            salir = true;
+            break;
+        }
     }
 
     return salir;
@@ -183,6 +190,7 @@ void cambiarSaldoCuenta() {
 
 void eliminarCuenta() {
     GestorCuentas::eliminarCuenta();
+    cout << "Se elimino la cuenta" << endl;
 }
 
 void buscarCuenta(char tipo) {
@@ -198,7 +206,7 @@ void buscarCuentaPorNumero(char tipo) {
     int numero = leerInt("Numero: ");
 
     if (!GestorCuentas::buscarPorNumero(numero, tipo)) {
-        cout << "Error: La cuenta no se pudo encontrar" << endl;
+        cout << "Error: La cuenta no se pudo encontrar";
     }
 
     cout << endl;
@@ -282,7 +290,7 @@ char leerChar(string msj)
             break;
         }
 
-        cout << "Caracter invalido, trate de nuevo" << endl;
+        cout << "Opcion invalida, trate de nuevo: ";
     }
 
     return c;

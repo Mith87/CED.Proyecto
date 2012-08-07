@@ -26,13 +26,13 @@ namespace GestorCuentas
 
     void registrarDatosPrueba()
     {
-        for (int i = 0; i < 40; i++) {
+        for (int i = 1; i <= 6; i++) {
             stringstream sstm;
-            bool c = i < 19;
+            bool c = i <= 3;
 
             sstm << "Pablo " << i;
 
-            registrar(sstm.str(), c ? i : i - 19, (c ? 'c' : 'd'), i * (c ? 1000 : 2));
+            registrar(sstm.str(), c ? i : i - 3, (c ? 'c' : 'd'), i * (c ? 1000 : 2));
         }
     }
 
@@ -54,7 +54,7 @@ namespace GestorCuentas
     void eliminarCuenta() {
         char tipo = (cuentaSeleccionada->getTipo() == "colones") ? 'c' : 'd';
         Arbin *arbol = seleccionarArbol(tipo);
-        arbol->borrarCuenta(cuentaSeleccionada);
+        arbol->borrarCuenta(cuentaSeleccionada->getNumero());
         deseleccionarCuenta();
     }
 

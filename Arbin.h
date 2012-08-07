@@ -18,7 +18,7 @@ class Arbin
         // buscar cuenta por numero de cliente
         Cuenta *buscarCuenta(std::string) const;
 
-        void borrarCuenta(Cuenta *);
+        void borrarCuenta(int);
 
         void recorrerInOrden(void (*func)(Cuenta *)) const;
 
@@ -33,6 +33,8 @@ class Arbin
 
         Nodo *buscarNodo(Nodo *, int) const;
         Nodo *buscarNodo(Nodo *, std::string) const;
+
+        void borrarNodo(Nodo *);
 
         int abs(int);
         int getMaxAlturaNodo(Nodo *);

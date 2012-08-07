@@ -21,12 +21,16 @@ Cuenta *Arbin::buscarCuenta(std::string nombre) const
 
 Cuenta *Arbin::buscarCuenta(Nodo *nodo, int numero) const
 {
-    if (!nodo) {
-        return NULL;
-    }
-
-    return buscarNodo(nodo, numero)->getCuenta();
+    nodo = buscarNodo(nodo, numero);
+    return nodo ? nodo->getCuenta() : NULL;
 }
+
+Cuenta *Arbin::buscarCuenta(Nodo *nodo, std::string nombre) const
+{
+    nodo = buscarNodo(nodo, nombre);
+    return nodo ? nodo->getCuenta() : NULL;
+}
+
 Nodo *Arbin::buscarNodo(Nodo *nodo, int numero) const
 {
     // se llego a un nodo vacio, no se encontro la cuenta
@@ -43,13 +47,12 @@ Nodo *Arbin::buscarNodo(Nodo *nodo, int numero) const
             : buscarNodo(nodo->getDerecho(), numero);
 }
 
-Cuenta *Arbin::buscarCuenta(Nodo *nodo, std::string nombre) const
-{
-    return buscarNodo(nodo, nombre)->getCuenta();
-}
-
 Nodo *Arbin::buscarNodo(Nodo *nodo, std::string nombre) const
 {
+    if (!nodo) {
+        return NULL;
+    }
+
     if (nombre == nodo->getCuenta()->getNombreCliente()) {
         return nodo;
     }
@@ -159,10 +162,9 @@ bool Arbin::insertarCuentaRecursivo(Cuenta *cta, Nodo *nodo) {
     return false;
 }
 
-void Arbin::borrarCuenta(Cuenta *cta)
+void Arbin::borrarCuenta(int numero)
 {
-    Nodo *nodo = buscarNodo(raiz, cta->getNumero());
-    borrarNodoCascada(nodo);
+    borrarNodo(buscarNodo(raiz, numero));
 }
 
 void Arbin::borrarNodoCascada(Nodo *nodo)
@@ -173,6 +175,63 @@ void Arbin::borrarNodoCascada(Nodo *nodo)
 
         delete nodo;
         nodo = NULL;
+    }
+}
+
+void Arbin::borrarNodo(Nodo *nodo)
+{
+    Nodo *hijo, *padre;
+
+    if (!nodo) {
+        return;
+    }
+
+    // nodo hoja
+    if (nodo->esHoja()) {
+
+        if ((padre = nodo->getPadre())) {
+            if (padre->getDerecho() == nodo) {
+                padre->setDerecho(NULL);
+            } else {
+                padre->setIzquierdo(NULL);
+            }
+        }
+
+        delete nodo;
+        nodo = NULL;
+
+    // nodo solo tiene un hijo
+    } else if (((hijo = nodo->getIzquierdo()) && !nodo->getDerecho()) ||
+               ((hijo = nodo->getDerecho()) && !nodo->getIzquierdo())) {
+
+        if ((padre = nodo->getPadre())) {
+            if (padre->getDerecho() == nodo) {
+                padre->setDerecho(hijo);
+            } else {
+                padre->setIzquierdo(hijo);
+            }
+        } else {
+            // es nodo raiz, reemplazar con el hijo
+            raiz = hijo;
+        }
+
+        delete nodo;
+        nodo = NULL;
+
+    // nodo tiene a los dos hijos
+    } else {
+
+        Nodo *padre = nodo;
+
+        hijo = nodo->getIzquierdo();
+        while (hijo->getDerecho()) {
+            padre = hijo;
+            hijo = hijo->getDerecho();
+        }
+
+        nodo->setCuenta(hijo->getCuenta());
+        delete hijo;
+        padre->setDerecho(NULL);
     }
 }
 
