@@ -216,9 +216,11 @@ void Arbin::borrarNodo(Nodo *nodo)
             } else {
                 padre->setIzquierdo(hijo);
             }
+            hijo->setPadre(padre);
         } else {
             // es nodo raiz, reemplazar con el hijo
             raiz = hijo;
+            hijo->setPadre(NULL);
         }
 
         delete nodo;
@@ -229,15 +231,34 @@ void Arbin::borrarNodo(Nodo *nodo)
 
         Nodo *padre = nodo;
 
-        hijo = nodo->getIzquierdo();
-        while (hijo->getDerecho()) {
-            padre = hijo;
-            hijo = hijo->getDerecho();
+        if (nodo->getDerecho()->getIzquierdo()) {
+            hijo = nodo->getDerecho();
+            while (hijo->getIzquierdo()) {
+                padre = hijo;
+                hijo = hijo->getIzquierdo();
+            }
+            if (padre == nodo) {
+                padre->setDerecho(NULL);
+            } else {
+                padre->setIzquierdo(NULL);
+            }
+        } else {
+            hijo = nodo->getIzquierdo();
+            while (hijo->getDerecho()) {
+                padre = hijo;
+                hijo = hijo->getDerecho();
+            }
+
+            if (padre == nodo) {
+                padre->setIzquierdo(NULL);
+            } else {
+                padre->setDerecho(NULL);
+            }
         }
 
         nodo->setCuenta(hijo->getCuenta());
+        hijo->setCuenta(NULL);
         delete hijo;
-        padre->setDerecho(NULL);
     }
 }
 
