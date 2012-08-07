@@ -7,7 +7,7 @@
 Nodo::Nodo(Cuenta *cta, Nodo *padre)
     : cuenta(cta), padre(padre), izquierdo(NULL), derecho(NULL) {
 
-        altura = (padre) ? padre->getAltura()+1 : 0;
+        altura = (padre) ? padre->getAltura() + 1 : 0;
 }
 
 Nodo::~Nodo()

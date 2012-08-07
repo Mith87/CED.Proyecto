@@ -21,6 +21,10 @@ Cuenta *Arbin::buscarCuenta(std::string nombre) const
 
 Cuenta *Arbin::buscarCuenta(Nodo *nodo, int numero) const
 {
+    if (!nodo) {
+        return NULL;
+    }
+
     return buscarNodo(nodo, numero)->getCuenta();
 }
 Nodo *Arbin::buscarNodo(Nodo *nodo, int numero) const
@@ -155,8 +159,8 @@ bool Arbin::insertarCuentaRecursivo(Cuenta *cta, Nodo *nodo) {
     return false;
 }
 
-void Arbin::borrarCuenta(Cuenta *cta) {
-
+void Arbin::borrarCuenta(Cuenta *cta)
+{
     Nodo *nodo = buscarNodo(raiz, cta->getNumero());
     borrarNodoCascada(nodo);
 }
@@ -164,19 +168,11 @@ void Arbin::borrarCuenta(Cuenta *cta) {
 void Arbin::borrarNodoCascada(Nodo *nodo)
 {
     if (nodo) {
-
-        Nodo *izq = nodo->getIzquierdo();
-        Nodo *der = nodo->getDerecho();
+        borrarNodoCascada(nodo->getIzquierdo());
+        borrarNodoCascada(nodo->getDerecho());
 
         delete nodo;
         nodo = NULL;
-
-        if(izq) {
-            borrarNodoCascada(izq);
-        }
-        if(der) {
-            borrarNodoCascada(der);
-        }
     }
 }
 
@@ -187,7 +183,7 @@ void Arbin::recorrerInOrden(void (*func)(Cuenta *)) const
 
 void Arbin::recorrerInOrden(void (*func)(Cuenta *), Nodo *nodo) const
 {
-    //valida si nodo existe (default: nodo = null)
+    //valida si nodo existe (default: nodo )
     if(!nodo) {
        nodo = this->raiz;
     }
