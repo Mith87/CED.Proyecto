@@ -31,9 +31,9 @@ int main(int argc, char **argv)
     bool salir = false;
     char opcion;
 
-    //if (argc > 1 && strcmp(argv[1], "--prueba") == 0) {
+    if (argc > 1 && strcmp(argv[1], "--prueba") == 0) {
         GestorCuentas::registrarDatosPrueba();
-    //}
+    }
 
     cout << " --==Proyecto Final, Estructuras de Datos 1==-- " << endl;
     cout << " Integrantes: Ernesto Villarreal, Pablo Naranjo " << endl;
@@ -168,7 +168,7 @@ void crearCuenta()
     tipo = leerChar("Tipo (colones: c, dolares: d): ");
 
     // si se ingreso un tipo invalido, usar colones por defecto
-    if (tipo != 'c' || tipo != 'd') {
+    if (tipo != 'c' && tipo != 'd') {
         tipo = 'c';
     }
 
