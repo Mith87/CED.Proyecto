@@ -26,7 +26,7 @@ namespace GestorCuentas
 
     void registrarDatosPrueba()
     {
-        for (int i = 1; i <= 6; i++) {
+        for (int i = 1; i <= 9; i++) {
             stringstream sstm;
             bool c = i <= 3;
 
@@ -64,7 +64,6 @@ namespace GestorCuentas
         string tipo = (charTipo == 'c') ? "colones" : "dolares";
         Cuenta *cuenta = new Cuenta(nombre, numero, tipo, saldo);
 
-        //return arbol->insertarCuenta(cuenta);
         return arbol->insertarCuentaRecursivo(cuenta);
     }
 
@@ -83,6 +82,7 @@ namespace GestorCuentas
         cout << "Nombre: " << cuenta->getNombreCliente() << endl;
         cout << "Saldo: " << cuenta->getSaldo() << endl;
         cout << "Tipo: " << cuenta->getTipo() << endl;
+        cout << "Altura: " << cuenta->getAltura() << endl;
     }
 
     void imprimirInOrden(char charTipo){
