@@ -64,8 +64,8 @@ namespace GestorCuentas
         string tipo = (charTipo == 'c') ? "colones" : "dolares";
         Cuenta *cuenta = new Cuenta(nombre, numero, tipo, saldo);
 
-        return arbol->insertarCuenta(cuenta);
-        //return arbol->insertarCuentaRecursivo(cuenta);
+        //return arbol->insertarCuenta(cuenta);
+        return arbol->insertarCuentaRecursivo(cuenta);
     }
 
     void imprimirDatos(Cuenta *cuenta)
