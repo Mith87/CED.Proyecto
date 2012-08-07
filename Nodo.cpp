@@ -1,13 +1,12 @@
 #include "Nodo.h"
 #include "Cuenta.h"
 
-//Nodo::Nodo(Cuenta *cta, Nodo *izq, Nodo *der, int h)
-    //: cuenta(cta), izquierdo(izq), derecho(der), altura(h) {}
-
 Nodo::Nodo(Cuenta *cta, Nodo *padre)
-    : cuenta(cta), padre(padre), izquierdo(NULL), derecho(NULL) {
+    : cuenta(cta), padre(padre), izquierdo(NULL),
+        derecho(NULL) {
 
         altura = (padre) ? padre->getAltura() + 1 : 0;
+        cta->setAltura(altura);
 }
 
 Nodo::~Nodo()
@@ -74,4 +73,17 @@ void Nodo::setPadre(Nodo *padre)
 void Nodo::setAltura(int h)
 {
     this->altura = h;
+    this->getCuenta()->setAltura(h);
+}
+
+void Nodo::incAltura()
+{
+    this->altura++;
+    this->cuenta->setAltura(this->altura);
+}
+
+void Nodo::decAltura()
+{
+    this->altura--;
+    this->cuenta->setAltura(this->altura);
 }

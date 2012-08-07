@@ -6,8 +6,6 @@
 class Nodo
 {
     public:
-        //cuenta, izquierdo, derecho
-        //Nodo(Cuenta *, Nodo *izq=NULL, Nodo *der=NULL);
         Nodo(Cuenta *, Nodo *padre=NULL);
         ~Nodo();
 
@@ -27,7 +25,8 @@ class Nodo
         void setDerecho(Nodo *);
         void setPadre(Nodo *);
         void setAltura(int h);
-
+        void incAltura();
+        void decAltura();
 
     private:
         Cuenta *cuenta;
