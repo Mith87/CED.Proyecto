@@ -78,39 +78,6 @@ Nodo *Arbin::buscarNodo(Nodo *nodo, std::string nombre) const
     return NULL;
 }
 
-bool Arbin::insertarCuenta(Cuenta *cta)
-{
-    Nodo *padre; actual = raiz;
-    int numero = cta->getNumero();
-
-    // Arbol vacío, crea raíz
-    if (!raiz) {
-        raiz = new Nodo(cta);
-        return true;
-    }
-
-    while(actual && numero != actual->getCuenta()->getNumero()) {
-        padre = actual;
-
-       actual = (numero < actual->getCuenta()->getNumero())
-            ? actual->getIzquierdo()
-            : actual->getDerecho();
-    }
-
-    // Cuenta existe
-    if (actual) {
-        return false;
-    }
-
-    // Agrega nuevo nodo a su respectiva posición
-    (numero < padre->getCuenta()->getNumero())
-            ? padre->setIzquierdo(new Nodo(cta, padre))
-            : padre->setDerecho(new Nodo(cta, padre));
-
-
-    return true;
-}
-
 bool Arbin::insertarCuentaRecursivo(Cuenta *cta) {
     return insertarCuentaRecursivo(cta, raiz);
 }
@@ -118,9 +85,13 @@ bool Arbin::insertarCuentaRecursivo(Cuenta *cta) {
 bool Arbin::insertarCuentaRecursivo(Cuenta *cta, Nodo *nodo) {
 
     //Arbol vacío, crea raíz
-    if (!raiz) {
-        raiz = new Nodo(cta);
-        return true;
+    if(!nodo) {
+        if (!raiz) {
+            raiz = new Nodo(cta);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     int numero = cta->getNumero();
@@ -152,14 +123,9 @@ bool Arbin::insertarCuentaRecursivo(Cuenta *cta, Nodo *nodo) {
             return true;
 
         } else {
-
             return insertarCuentaRecursivo(cta, nodo->getDerecho());
         }
     }
-
-    //fallo al insertar
-    //cuenta
-    return false;
 }
 
 void Arbin::borrarCuenta(int numero)
@@ -286,6 +252,11 @@ void Arbin::recorrerInOrden(void (*func)(Cuenta *), Nodo *nodo) const
 }
 
 void Arbin::balancearNodo(Nodo *nodo) {
+
+    if(!nodo) {
+        return;
+    }
+
     //obtiene el balance
     int balance = getBalanceNodo(nodo);
     //valor absoluto |balance| para
@@ -295,29 +266,30 @@ void Arbin::balancearNodo(Nodo *nodo) {
         //derecha (right-heavy)
         if(balance > 0) {
 
-            int sBalance = getBalanceNodo(nodo->getIzquierdo());
+            int sBalance = getBalanceNodo(nodo->getDerecho());
             //if necesario rotacion derecha-izquierda
-            //por exceso de peso a derecha del subnodo
+            //por exceso de peso a izquierda del subnodo
             if(sBalance < 0) {
-                rotacionDerecha(nodo->getIzquierdo());
+                rotacionDerecha(nodo->getDerecho());
             }
 
-            //se rota la la raiz
-            rotacionIzquierda(nodo);
+            //se rota el subnodo derecho de raiz
+            rotacionIzquierda(nodo->getDerecho());
+
         }
         //else arbol pesado en la
         //izquierda (left-heavy)
         else {
 
-            int sBalance = getBalanceNodo(nodo->getDerecho());
-            //if necesario rotacion derecha-izquierda
-            //por exceso de peso a derecha del subnodo
+            int sBalance = getBalanceNodo(nodo->getIzquierdo());
+            //if necesario rotacion izquierda-derecha
+            //por exceso de peso a la derecha del subnodo
             if(sBalance > 0) {
                 rotacionIzquierda(nodo->getIzquierdo());
             }
 
-            //se rota la la raiz
-            rotacionDerecha(nodo);
+            //se rota el subnodo izquierdo de raiz
+            rotacionDerecha(nodo->getIzquierdo());
         }
     }
 }
@@ -328,8 +300,12 @@ int Arbin::abs(int a) {
 
 int Arbin::getBalanceNodo(Nodo *nodo) {
 
-    int hIzq = getMaxAlturaNodo(nodo->getIzquierdo());
-    int hDer = getMaxAlturaNodo(nodo->getDerecho());
+    int hIzq = (nodo->getIzquierdo()) //subnodo izquierdo == null?
+        ? getMaxAlturaNodo(nodo->getIzquierdo()) //altura de hoja mas baja
+        : nodo->getAltura(); //altura de raiz
+    int hDer = (nodo->getDerecho()) //subnodo derecho == null?
+        ? getMaxAlturaNodo(nodo->getDerecho()) //altura de hoja mas baja
+        : nodo->getAltura(); //altura de raiz
 
     return hDer - hIzq;
 }
@@ -354,112 +330,53 @@ int Arbin::getMaxAlturaNodo(Nodo *nodo){
 
 void Arbin::rotacionIzquierda(Nodo *nodo) {
 
+    //obtiene el padre del padre (predecesor)
+    Nodo *predecesor = nodo->getPadre()->getPadre();
     Nodo *padre = nodo->getPadre();
 
+    /*prueba*/
+    //int a = nodo->getAltura();
+    //int b = nodo->getDerecho()->getAltura();
+    //int c = padre->getAltura();
+
     //si es la raiz del arbol
-    if(padre == NULL) {
+    if(!predecesor) {
         //raiz pasa a ser el nodo desbalanceado
-        raiz = nodo->getIzquierdo();
+        raiz = nodo;
     } else {
-        padre->setDerecho(nodo->getDerecho());
+        predecesor->setDerecho(nodo);
     }
 
-    nodo->getDerecho()->setIzquierdo(nodo);
-    nodo->setDerecho(nodo->getDerecho()->getIzquierdo());
-
+    //modifica la altura de los nodos
+    nodo->setAltura(-1);
+    nodo->getDerecho()->setAltura(-1);
+    padre->setAltura(+1);
 }
 
 void Arbin::rotacionDerecha(Nodo *nodo) {
 
+    //obtiene el padre del padre (predecesor)
+    Nodo *predecesor = nodo->getPadre()->getPadre();
     Nodo *padre = nodo->getPadre();
 
+    /*prueba*/
+    //int a = nodo->getAltura();
+    //int b = nodo->getDerecho()->getAltura();
+    //int c = padre->getAltura();
+
     //si es la raiz del arbol
-    if(padre == NULL) {
+    if(!predecesor) {
         //raiz pasa a ser el nodo desbalanceado
-        raiz = nodo->getIzquierdo();
+        raiz = nodo;
     } else {
-        padre->setIzquierdo(nodo->getIzquierdo());
+        predecesor->setIzquierdo(nodo);
     }
 
-    nodo->getIzquierdo()->setDerecho(nodo);
-    nodo->setIzquierdo(nodo->getIzquierdo()->getDerecho());
+    padre->setIzquierdo(nodo->getDerecho());
+    nodo->setDerecho(padre);
 
+    //modifica la altura de los nodos
+    nodo->setAltura(-1);
+    nodo->getIzquierdo()->setAltura(-1);
+    padre->setAltura(+1);
 }
-
-/*************************************************************************/
-
-//Cuenta *Arbin::buscarCuenta(Nodo *nodo, std::string nombre) const
-//{
-//    if (nombre == nodo->getCuenta()->getNombreCliente()) {
-//        return nodo->getCuenta();
-//    }
-//
-//    Cuenta *izq, *der;
-//
-//    if (nodo->getIzquierdo()) {
-//        izq = buscarCuenta(nodo->getIzquierdo(), nombre);
-//        if (izq) {
-//            return izq;
-//        }
-//    }
-//
-//    if (nodo->getDerecho()) {
-//        der = buscarCuenta(nodo->getDerecho(), nombre);
-//        if (der) {
-//            return der;
-//        }
-//    }
-//
-//    // si llega a este punto
-//    // cuenta no existe
-//    return NULL;
-//}
-
-//Cuenta *Arbin::buscarCuenta(Nodo *nodo, int numero) const
-//{
-//    // se llego a un nodo vacio, no se encontro la cuenta
-//    if (!nodo) {
-//        return NULL;
-//    }
-//
-//    if (numero == nodo->getCuenta()->getNumero()) {
-//        return nodo->getCuenta();
-//    }
-//
-//    return (numero < nodo->getCuenta()->getNumero())
-//            ? buscarCuenta(nodo->getIzquierdo(), numero)
-//            : buscarCuenta(nodo->getDerecho(), numero);
-//}
-
-//void Arbin::balanceNodo(Nodo *nodo) {
-//
-//    int hIzq = getMaxAlturaNodo(nodo->getIzquierdo());
-//    int hDer = getMaxAlturaNodo(nodo->getDerecho());
-//    int vAbs = abs(hIzq - hDer);
-//
-//    if(vAbs > 1) {
-//        //no balanceado
-//        (hIzq < hDer)
-//            ? rotacionIzquierda(nodo)
-//            : rotacionDerecha(nodo);
-//    }
-//}
-
-//void Arbin::balanceNodo(Nodo *nodo) {
-//
-//    int hIzq = getMaxAlturaNodo(nodo->getIzquierdo());
-//    int hDer = getMaxAlturaNodo(nodo->getDerecho());
-//    int diff = hIzq - hDer;
-//    int vAbs = abs(hIzq - hDer);
-//
-//    //|x| > 1 = no balanceado
-//    if(vAbs > 1) {
-//        //diferencia de peso
-//        //en las ramas
-//        (diff > 0)
-//            ? rotacionIzquierda(nodo)
-//            : rotacionDerecha(nodo);
-//    }
-//}
-
-/*************************************************************************/

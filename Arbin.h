@@ -10,7 +10,6 @@ class Arbin
         Arbin();
         ~Arbin();
 
-        bool insertarCuenta(Cuenta *);
         bool insertarCuentaRecursivo(Cuenta *);
 
         // buscar cuenta por numero de cuenta
@@ -19,7 +18,6 @@ class Arbin
         Cuenta *buscarCuenta(std::string) const;
 
         void borrarCuenta(int);
-
         void recorrerInOrden(void (*func)(Cuenta *)) const;
 
     private:
