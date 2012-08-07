@@ -110,7 +110,6 @@ bool Arbin::insertarCuentaRecursivo(Cuenta *cta, Nodo *nodo) {
             return true;
 
         } else {
-
             return insertarCuentaRecursivo(cta, nodo->getIzquierdo());
         }
 
@@ -334,11 +333,6 @@ void Arbin::rotacionIzquierda(Nodo *nodo) {
     Nodo *predecesor = nodo->getPadre()->getPadre();
     Nodo *padre = nodo->getPadre();
 
-    /*prueba*/
-    //int a = nodo->getAltura();
-    //int b = nodo->getDerecho()->getAltura();
-    //int c = padre->getAltura();
-
     //si es la raiz del arbol
     if(!predecesor) {
         //raiz pasa a ser el nodo desbalanceado
@@ -347,10 +341,13 @@ void Arbin::rotacionIzquierda(Nodo *nodo) {
         predecesor->setDerecho(nodo);
     }
 
+    padre->setDerecho(nodo->getIzquierdo());
+    nodo->setIzquierdo(padre);
+
     //modifica la altura de los nodos
-    nodo->setAltura(-1);
-    nodo->getDerecho()->setAltura(-1);
-    padre->setAltura(+1);
+    nodo->decAltura();
+    nodo->getDerecho()->decAltura();
+    padre->incAltura();
 }
 
 void Arbin::rotacionDerecha(Nodo *nodo) {
@@ -358,11 +355,6 @@ void Arbin::rotacionDerecha(Nodo *nodo) {
     //obtiene el padre del padre (predecesor)
     Nodo *predecesor = nodo->getPadre()->getPadre();
     Nodo *padre = nodo->getPadre();
-
-    /*prueba*/
-    //int a = nodo->getAltura();
-    //int b = nodo->getDerecho()->getAltura();
-    //int c = padre->getAltura();
 
     //si es la raiz del arbol
     if(!predecesor) {
@@ -376,7 +368,7 @@ void Arbin::rotacionDerecha(Nodo *nodo) {
     nodo->setDerecho(padre);
 
     //modifica la altura de los nodos
-    nodo->setAltura(-1);
-    nodo->getIzquierdo()->setAltura(-1);
-    padre->setAltura(+1);
+    nodo->decAltura();
+    nodo->getIzquierdo()->decAltura();
+    padre->incAltura();
 }

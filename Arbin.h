@@ -46,10 +46,6 @@ class Arbin
         void borrarNodoCascada(Nodo *);
         void recorrerInOrden(void (*func)(Cuenta *) , Nodo *nodo) const;
 
-
-
-
-
 };
 
 #endif
